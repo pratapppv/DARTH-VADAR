@@ -12,8 +12,8 @@ Consider a single object with velocity $$v = 0$$ hence static at a distance $$d$
 
 \begin{equation*}
    Tx(t) = A_{Tx}cos(\int 2\pi f(t)dt)
-\end{equation}
-On integrating and substituting the expression, we get $Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BWt}{T_{ch}})$. As multiple chirps are transmitted, the $m^{th}$ chirp will have equation($\ref{eq:Tx}$)
+\end{equation*}
+On integrating and substituting the expression, we get $ Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BWt}{T_{ch}}) $. As multiple chirps are transmitted, the $ m^{th} $ chirp will have equation($ \ref{eq:Tx} $)
 
 \begin{equation}
   Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BW(t - mT_{ch})}{T_{ch}})
