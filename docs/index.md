@@ -10,15 +10,15 @@ An FMCW RADAR is a specific type of RADAR which is most commonly used to determi
 
 Consider a single object with velocity $$v = 0$$ hence static at a distance $$d$$ from the RADAR. To detect the object, let an EM wave pulse be transmitted to irradiate the object. Due to the finite propagation velocity of an EM wave in free space, the time taken for incidence on the target is $\frac{d}{c}$ where $c$ is the speed of light (medium is considered to be air). For a monostatic RADAR with the transmitter and receiver located at the same position, the cumulative round trip time delay is  $$\frac{2d}{c}$$. As this delay is in the order of nanoseconds, accurate and precise measurement is not feasible. Therefore, let the transmitted pulse be frequency modulated by a sawtooth waveform with a timeperiod $$T_{ch}$$. Therefore the frequency can be written as $ f(t) = f_0 + \frac{BW t}{T_{ch}} $. Now a frequency modulated signal can be written as 
 
-\[
+\begin{equation*}
    Tx(t) = A_{Tx}cos(\int 2\pi f(t)dt)
-\]
-On integrating and substituting the expression, we get $Tx(t) = A_{Tx}cos(2\pif_0t + 2\pi \frac{BWt}{T_{ch}})$. As multiple chirps are transmitted, the $m^{th}$ chirp will have equation(\ref{eq:Tx})
+\end{euation}
+On integrating and substituting the expression, we get $Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BWt}{T_{ch}})$. As multiple chirps are transmitted, the $m^{th}$ chirp will have equation(\ref{eq:Tx})
 
-\[
-  Tx(t) = A_{Tx}cos(2\pif_0t + 2\pi \frac{BW(t - mT_{ch})}{T_{ch}})
+\begin{equation}
+  Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BW(t - mT_{ch})}{T_{ch}})
   \label{eq:Tx}
-\]
+\end{equation}
 
 ## Transmitter Section
 On the outset, a RADAR can be divided into two major RF sections, a transmitter and a receiver. In an FMCW RADAR, the transmitter section transmits a chirp signal, essentially a signal who's frequency varies continuously as a function of time, giving the name Frequency Modulated Continuous Wave RADAR. Depending on the parameters of the target to be measured, an appropriate chirp pattern is chosen. Two of the simplest ones are **Sawtooth and Triangular waveforms**. A sawtooth waveform allows us to determine the range i.e the distance of a static object (target) from the RADAR, while a triangle waveform allows us to determine both the position and speed of the object (target). This chirp is radiated out by an antenna connected to the transmitter. To facilitate all this, the transmitter comprises of the following:
