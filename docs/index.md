@@ -10,10 +10,11 @@ An FMCW RADAR is a specific type of RADAR which is most commonly used to determi
 
 Consider a single object with velocity $$v = 0$$ hence static at a distance $$d$$ from the RADAR. To detect the object, let an EM wave pulse be transmitted to irradiate the object. Due to the finite propagation velocity of an EM wave in free space, the time taken for incidence on the target is $\frac{d}{c}$ where $c$ is the speed of light (medium is considered to be air). For a monostatic RADAR with the transmitter and receiver located at the same position, the cumulative round trip time delay is  $$\frac{2d}{c}$$. As this delay is in the order of nanoseconds, accurate and precise measurement is not feasible. Therefore, let the transmitted pulse be frequency modulated by a sawtooth waveform with a timeperiod $$T_{ch}$$. Therefore the frequency can be written as $ f(t) = f_0 + \frac{BW t}{T_{ch}} $. Now a frequency modulated signal can be written as 
 
-\begin{equation*}
+\begin{equation}
    Tx(t) = A_{Tx}cos(\int 2\pi f(t)dt)
-\end{equation*}
-On integrating and substituting the expression, we get $ Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BWt}{T_{ch}}) $. As multiple chirps are transmitted, the $ m^{th} $ chirp will have equation($ \ref{eq:Tx} $)
+\end{equation}
+
+On integrating and substituting the expression, we get $ Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BWt}{T_{ch}}) $. As multiple chirps are transmitted, the $ m^{th} $ chirp will have equation(\eqref{eq:Tx})
 
 \begin{equation}
   Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BW(t - mT_{ch})}{T_{ch}})
