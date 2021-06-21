@@ -14,12 +14,38 @@ Consider a single object with velocity $$v = 0$$ hence static at a distance $$d$
    Tx(t) = A_{Tx}cos(\int 2\pi f(t)dt)
 \end{equation}
 
-On integrating and substituting the expression, we get $ Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BWt}{T_{ch}}) $. As multiple chirps are transmitted, the $ m^{th} $ chirp will have equation \eqref{eq:Tx}
+On integrating and substituting the expression, we get $ Tx(t) = A_{Tx}cos(2\pi f_0t + \pi \frac{BWt^2}{T_{ch}}) $. As multiple chirps are transmitted, the $ m^{th} $ chirp will have the following equation.
 
 \begin{equation}
-  Tx(t) = A_{Tx}cos(2\pi f_0t + 2\pi \frac{BW(t - mT_{ch})}{T_{ch}})
-  \label{eq:Tx}
+  Tx(t) = A_{Tx}cos(2\pi f_0t + \pi (\frac{BW(t - mT_{ch})^2}{T_{ch}})^2)
 \end{equation}
+In the above equations,
+$ f_0 $ is the minimum frequency transmitted
+$ BW $ is the bandwidth of the chirp
+$ A_{Tx} $ is the amplitude of the transmitted signal
+
+Now once transmitted, the radiated chirp will reflect off a target and will be received by the receiver section of the RADAR. The round trip propagation delay is given by $ t_d $. The received signal can be mathematically expressed as an attenuated and delayed version of the transmitted chirp. Therefore the received signal can be expressed as follows.
+
+\begin{equation}
+   Rx(t) = \alpha A_{Tx}cos(2\pi f_0(t - t_d) + 2\pi \frac{BW(t - t_d - mT_{ch})^2}{T_{ch}})
+\end{equation}
+
+Now to determine the round trip time delay, the transmitted and received equations are multiplied(mixed). This operation gives two frequencies of interest, a sum component and another the difference component. The difference component is one of interest and can easily be isolated by lowpass filtering the spectrum obtained from the post mixing operation. On taking the fourier transform of this difference signal, the spectral component is given as follows
+
+\begin{equation}
+      M(j\omega) = 2\pi\alpha A_{Tx}^2 (\delta(\omega + \frac{t_d BW}{T_{ch}}) + \delta(\omega - \frac{t_d BW}{T_{ch}}))
+\end{equation}
+
+Clearely, the measured frequency denoted by $ f_{diff} $ is calculated by the following equation
+\begin{equation}
+      f_{diff} = \frac{t_d BW}{T_{ch}}
+\end
+This can further be re-written to express $ f_{diff} $ as a function of the one way distance between the RADAR and the target denoted by $ d $. On solving for $ d $, we get the following equation
+
+\begin{equation}
+   d = \frac{BW t_d}{2c T_{ch}}
+\end{equation}
+Where $ c $ is the speed of light (we assume the propagating medium to be air)
 
 ## Transmitter Section
 On the outset, a RADAR can be divided into two major RF sections, a transmitter and a receiver. In an FMCW RADAR, the transmitter section transmits a chirp signal, essentially a signal who's frequency varies continuously as a function of time, giving the name Frequency Modulated Continuous Wave RADAR. Depending on the parameters of the target to be measured, an appropriate chirp pattern is chosen. Two of the simplest ones are **Sawtooth and Triangular waveforms**. A sawtooth waveform allows us to determine the range i.e the distance of a static object (target) from the RADAR, while a triangle waveform allows us to determine both the position and speed of the object (target). This chirp is radiated out by an antenna connected to the transmitter. To facilitate all this, the transmitter comprises of the following:
