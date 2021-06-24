@@ -56,3 +56,9 @@ From the above described equations, the block-diagram of a FMCW RADAR is pretty 
 ![block-diagram](/img/BD)
 
 ## Design of RF Front End
+The block diagram is rather easily and directly translated into it's circuit level equivalent. To simplify matters, fully integrated components were used, condensing each block into a single IC and a handfull of passives. The chirp is generated off board and is not discussed. For the remainder of the post, focus would be towards some of the calculations performed to determine the range of the RADAR and the PCB layout considerations.
+
+The Schematic for the RADAR is attached [here](./docs/schematic.pdf)
+
+### RF Chain explanation
+The RF chain begins with the Voltage Controlled Oscillator(VCO). The VCO chosen in the [MAX2750EUA+](https://datasheets.maximintegrated.com/en/ds/MAX2750-MAX2752.pdf). The chosen VCO requires essentially no external components and the 
