@@ -65,3 +65,10 @@ The RF chain begins with the Voltage Controlled Oscillator(VCO) chosen to be the
 The other input to the mixer is the signal reflected by the target which is received by the receiving antenna. As the signal power of this received signal is pretty low, it is amplified by a Low Noise Amplifier, abbreviated as LNA. The LNA used is the [BGA622H6820XTSA1](https://www.mouser.in/datasheet/2/196/infineon_infns12498-1-1735744.pdf) from Infineon semiconductor. Inorder to improve the insertion loss of the LNA, an LC matching network is placed between the receiving antenna's output and the LNA's input which is as described in the datasheet.
 
 The output spectrum of the mixer contains two different frequencies which is the sum and difference of the two inputs. The sum component lies in the range of $$4.8GHz$$ to $$5GHz$$ which can be filtered out. The difference component lies in the $$0Hz$$ to $$100MHz$$ range. This baseband signal is sampled by an ADC and the fourier transform is computed by an external FPGA.
+
+### PCB Design
+The first thing decided was the PCB Stackup. Defying convention, a **2 layer** $$1.6mm$$ FR4 PCB stackup was chosen having the following cross-section. 
+
+![PCB Stackup](\img\stackup)
+
+For the chosen stackup, a Grounded CoPlanar Waveguide(GCPW) structure was used over a more common microstrip transmission line due to it's large width at this stackup. The spacing for the GCPW transmission line was calculated using an online calculator for a charecteristic impedance of $$50\Omega$$. As I had access to CST-Microwave studio while designing, I simulated the transmissionline and tweaked the spacing/geometry a bit to account for the PCB fabrication design rules and also the impact of the breakout traces used to connect the transmission line to a pin of a required IC. The simulated geometry and results are shown below.
