@@ -117,7 +117,7 @@ For this, the bandwidth was restricted to $$25kHz$$ by placing a 7th order butte
 
 ![AWR Filter](img\filter.png)
 
-To model an ADC of $$50kHz$$, a downsampling block with a downsample ratio of 10000 was used as the ADC block in AWR Visual System Simulator gives a digital output. The downsampling operation introduces copies of the main signal at other spectral locations which donot correspond to physical objects present at that location which is not of great concern currently as the signal processing chain simulated is more of a formality to verify the functionality of the RADAR and will **not** be implemented in it's current format. An added advantage of implementing the ADC as a downsample block is that the signal is coherently sampled eliminating the need for any windowing functions to be used. The output of the downsampled signal is fed into a 128 point FFT block. This 128 point FFT results in a spectral resolution of $$30.625Hz$$ which corresponds to a spatial resolution of roughly $$20cm$$. The entire chain is shown below.
+To model an ADC of $$50kHz$$, a downsampling block with a downsample ratio of 10000 was used as the ADC block in AWR Visual System Simulator gives a digital output. The downsampling operation introduces copies of the main signal at other spectral locations which donot correspond to physical objects present at that location which is not of great concern currently as the signal processing chain simulated is more of a formality to verify the functionality of the RADAR and will **not** be implemented in it's current format. An added advantage of implementing the ADC as a downsample block is that the signal is coherently sampled eliminating the need for any windowing functions to be used. The output of the downsampled signal is fed into a 128 point FFT block. This 128 point FFT results in a spectral resolution of $$390.625Hz$$ which corresponds to a spatial resolution of roughly $$20cm$$. The entire chain is shown below.
 
 ![AWR SS](img\SS.png)
 
@@ -132,4 +132,11 @@ The first thing decided was the PCB Stackup. Defying convention, a **2 layer** $
 
 ![PCB Stackup](img\stackup.png)
 
-For the chosen stackup, a Grounded CoPlanar Waveguide(GCPW) structure was used over a more common microstrip transmission line due to it's large width at this stackup. The spacing for the GCPW transmission line was calculated using an online calculator for a charecteristic impedance of $$50\Omega$$. As I had access to CST-Microwave studio while designing, I simulated the transmissionline and tweaked the spacing/geometry a bit to account for the PCB fabrication design rules and also the impact of the breakout traces used to connect the transmission line to a pin of a required IC. The simulated geometry and results are shown below.
+For the chosen stackup, a Grounded CoPlanar Waveguide(GCPW) structure was used over a more common microstrip transmission line due to it's large width at this stackup. The spacing for the GCPW transmission line was calculated using an online calculator for a charecteristic impedance of $$50\Omega$$. As I had access to CST-Microwave studio while designing, I simulated the transmissionline and tweaked the spacing/geometry a bit to account for the PCB fabrication design rules and also null the effect of the breakout traces used to connect the transmission line to a pin of a required IC. The isometric view of the simulated geometry and results are shown below.
+
+![CST Transmission Line](img\TrL.png)
+![Transmission Line S parameters](img\Sparam.png)
+
+The transmission lines used provide a sufficiently flat response in the band of interest and were directly used. Small clearence/spacing changes were made in accordance to the manufacturer tolerences and design rules.
+
+With the transmission line designed, the PCB layout was straight forward. As I had chosen to go ahead with a 2 layer stack up, the bottom layer was a solid ground plane and the top layer was used for transision lines and occationl power traces. For ease of debugging, each block in the signal path was broken out with an [RF switch]() alowing one to isolate and test every singleb lock. In order to be able to truly test ever block separately, the *VCC* pins for each block were broken out into a header so that the supply voltage could be provided to only one block at a time simplifying the routing. 
