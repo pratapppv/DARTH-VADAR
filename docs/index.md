@@ -123,7 +123,7 @@ To model an ADC of $$50kHz$$, a downsampling block with a downsample ratio of 10
 
 Finally, the output of the entire RADAR is shown below. Rounding the frequency to be a round $20kHz$ and back ssubstituting it in the RADAR distance equation, the distance measured is $$6m$$ which indeed is the set distance of the target.
 
-![AWR Result](img/output.png)
+![AWR Result](img\output.png)
 
 Note: this result is of the first sweep, at a time where the target has not moved much from it's initial location.
 
