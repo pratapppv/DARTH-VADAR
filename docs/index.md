@@ -53,7 +53,7 @@ Where $ c $ is the speed of light (we assume the propagating medium to be air)
 
 From the above described equations, the block-diagram of a FMCW RADAR is pretty easily arrived at and is shown below  
 
-![block-diagram](/img/BD.png)
+![block-diagram](./img/BD.png)
 
 ## Design of RF Front End
 The block diagram is rather easily and directly translated into it's circuit level equivalent. To simplify matters, fully integrated components were used, condensing each block into a single IC and a handfull of passives. The chirp is generated off board and is not discussed. For the remainder of the post, focus would be towards some of the calculations performed to determine the range of the RADAR and the PCB layout considerations.
@@ -71,10 +71,10 @@ Before proceeding to the PCB design, the system architecture was simulated in Ca
 
 #### Voltage Controlled Oscillator
 
-![AWR VCO](\img\VCO.png)
+![AWR VCO](img\VCO.png)
 
 The spectrum at the output of the VCO is shown below
-![VCO Spectrum](\img\VCO_spectrum.png)
+![VCO Spectrum](img\VCO_spectrum.png)
 
 #### Power Amplifier
 
