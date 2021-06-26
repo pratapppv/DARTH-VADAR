@@ -70,15 +70,18 @@ The output spectrum of the mixer contains two different frequencies which is the
 Before proceeding to the PCB design, the system architecture was simulated in Cadence AWR with the values for every block the same as the corresponding component. The signal at every point in the signal path is shown below.
 
 #### Voltage Controlled Oscillator
+
 ![AWR VCO](\img\VCO.png)
 
 The spectrum at the output of the VCO is shown below
 ![VCO Spectrum](\img\VCO_spectrum.png)
 
 #### Power Amplifier
+
 ![AWR PA](\img\PA.png)
 
 The output powr is shown below
+
 ![PA output](\img\PApower.png)
 
 #### Power Divider
