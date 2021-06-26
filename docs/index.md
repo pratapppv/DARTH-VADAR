@@ -78,17 +78,43 @@ The spectrum at the output of the VCO is shown below
 
 #### Power Amplifier
 
-![AWR PA](\img\PA.png)
+![AWR PA](img\PA.png)
 
 The output powr is shown below
 
-![PA output](\img\PApower.png)
+![PA output](img\PApower.png)
 
-#### Power Divider
+#### Power Divider and Transmitting Antenna
+
+The power divider was modelled as per the datasheet similar to the previous components. The antenna used was a custom truncated inset fed microstrip patch antenna, designed and simulated using CST Microwave studio. The 3D farfield pattern was exported into a CSV file and imported into Cadence AWR to account for the antenna charecteristics. The deign of the antenna is explained in the later sections.
+
+![AWR Power Divider and Antenna](img\div_ant.png)
+
+#### Target Model
+
+For the target, a metallic object was used having a diameter of $$16m$$. Two cases were simulated, one where the velocity of the target is $$10ms^{-1}$$ moving away from the RADAR and another simpler case of a static target. The RCS was automatically cmputed by AWR. The figure shown below is from the case where the target is moving away from the RADAR. AWR assumes multiple reflections and a fading channel for the simulation which results in artefacts during the DSP section.
+
+![Target](img\target.png)
+
+#### Receiving Antenna and LNA
+
+The receiving antenna has the same design of the transmitting antenna and it was modelled in the same way as the transmitting antenna. For the given target, the LNA power output is shown below.
+
+![AWR Rx Antenna+LNA](img\Ant_LNA.png)
+
+I[AWR spectrum](img\LNA_spectrum.png)
+
+#### Mixer
+
+![AWR Mixer](img\Mixer.png)
+
+#### Bare Minimum Signal Processing Section
+
+For the bare minimum signal processing section, an ADC with $$500MSPS$$ sampling frequency was assumed so as to over sample the $$100MHz$$ baseband signal at $$2.5x$$ the Nyquist frequency. The resultant datastream is then digitally down sampled by $$10000$$ making the data stream to be at $$50KSPS$$, a sample rate which is far more easier to handle. The 
 
 ### PCB Design
 The first thing decided was the PCB Stackup. Defying convention, a **2 layer** $$1.6mm$$ FR4 PCB stackup was chosen having the following cross-section. 
 
-![PCB Stackup](\img\stackup.png)
+![PCB Stackup](img\stackup.png)
 
 For the chosen stackup, a Grounded CoPlanar Waveguide(GCPW) structure was used over a more common microstrip transmission line due to it's large width at this stackup. The spacing for the GCPW transmission line was calculated using an online calculator for a charecteristic impedance of $$50\Omega$$. As I had access to CST-Microwave studio while designing, I simulated the transmissionline and tweaked the spacing/geometry a bit to account for the PCB fabrication design rules and also the impact of the breakout traces used to connect the transmission line to a pin of a required IC. The simulated geometry and results are shown below.
