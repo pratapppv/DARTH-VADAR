@@ -109,8 +109,23 @@ I[AWR spectrum](img\LNA_spectrum.png)
 ![AWR Mixer](img\Mixer.png)
 
 #### Bare Minimum Signal Processing Section
+The bare minimum signal processing section exists to determine the functionality of the RADAR. 
 
-For the bare minimum signal processing section, an ADC with $$500MSPS$$ sampling frequency was assumed so as to over sample the $$100MHz$$ baseband signal at $$2.5x$$ the Nyquist frequency. The resultant datastream is then digitally down sampled by $$10000$$ making the data stream to be at $$50KSPS$$, a sample rate which is far more easier to handle. The 
+![AWR Receiver](img\receiver.png)
+
+For this, the bandwidth was restricted to $$25kHz$$ by placing a 7th order butterworth LC lowpass filter shown below.
+
+![AWR Filter](img\filter.png)
+
+To model an ADC of $$50kHz$$, a downsampling block with a downsample ratio of 10000 was used as the ADC block in AWR Visual System Simulator gives a digital output. The downsampling operation introduces copies of the main signal at other spectral locations which donot correspond to physical objects present at that location which is not of great concern currently as the signal processing chain simulated is more of a formality to verify the functionality of the RADAR and will **not** be implemented in it's current format. An added advantage of implementing the ADC as a downsample block is that the signal is coherently sampled eliminating the need for any windowing functions to be used. The output of the downsampled signal is fed into a 128 point FFT block. This 128 point FFT results in a spectral resolution of $$30.625Hz$$ which corresponds to a spatial resolution of roughly $$20cm$$. The entire chain is shown below.
+
+![AWR SS](img\SS.png)
+
+Finally, the output of the entire RADAR is shown below. Rounding the frequency to be a round $20kHz$ and back ssubstituting it in the RADAR distance equation, the distance measured is $$6m$$ which indeed is the set distance of the target.
+
+![AWR Result](img/output.png)
+
+Note: this result is of the first sweep, at a time where the target has not moved much from it's initial location.
 
 ### PCB Design
 The first thing decided was the PCB Stackup. Defying convention, a **2 layer** $$1.6mm$$ FR4 PCB stackup was chosen having the following cross-section. 
