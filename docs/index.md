@@ -62,7 +62,7 @@ The Schematic for the RADAR is attached [here](./docs/schematic.pdf)
 
 ### RF Chain Explanation
 The RF chain begins with the Voltage Controlled Oscillator(VCO) chosen to be the [MAX2750EUA+](https://datasheets.maximintegrated.com/en/ds/MAX2750-MAX2752.pdf) which requires essentially no external components and provides an AC coupled output. As the output power of the VCO is a paltry $$-3dbBm$$, a power amplifier follows next. The power amplifier chosen is a [GVA-60+](https://www.minicircuits.com/pdfs/GVA-60+.pdf) from Mini-Circuits. This PA is rated to have a power gain of $$+20dB$$ wich should boost the signal level to $$17dBm$$. The PA also requires a teensy bit more effort to get up and running than the VCO as it requires a couple of RF Chokes and DC blocking capacitors. The output of the PA is split into two equal paths via a lumped element Wilkinson power divider [PD2425J5050S2HF](https://cdn.anaren.com/product-documents/Xinger/PowerDividers/PD2425J5050S2HF/PD2425J5050S2HF_DataSheet(Rev_A).pdf) from Anaren. Normally, a distributed element Wilkinson divider is used, but in the current band of interest, a lumped element one is far more compact than a distributed element one. This divider from Ananren requires an external $$100\Omega$$ resister. A 0.1% tolerence $$100\Omega$$ high frequency RF resistor was specifically chosen for this which was probably a bit overkill, but I didnot want to take any chances. As the power divider chosen splits the power into two equal half, each port delivers a power of $$14dBm$$ to the load attached to it. As the transmitting antenna is connected to one port of the power divider, the net power delivered to the antenna is $$14dBm$$ which will become important later on while determining the range of the RADAR. The other port of the power divider is connected to the mixer, delivering $$14dBm$$ of power to it which is the main driving signal for the double balanced passive mixer. The mixer used is the [MDB-73H+](https://www.minicircuits.com/pdfs/MDB-73H+.pdf) so selected as it requires a typical driving signal power of $$15dBm$$.
-The other input to the mixer is the signal reflected by the target which is received by the receiving antenna. As the signal power of this received signal is pretty low, it is amplified by a Low Noise Amplifier, abbreviated as LNA. The LNA used is the [BGA622H6820XTSA1](https://www.mouser.in/datasheet/2/196/infineon_infns12498-1-1735744.pdf) from Infineon semiconductor. Inorder to improve the insertion loss of the LNA, an LC matching network is placed between the receiving antenna's output and the LNA's input which is as described in the datasheet.
+The other input to the mixer is the signal reflected by the target which is received by the receiving antenna. As the signal power of this received signal is pretty low, it is amplified by a Low Noise Amplifier, abbreviated as LNA. The LNA used is the [BGA622H6820XTSA1](https://www.mouser.in/datasheet/2/196/infineon_infns12498-1-1735744.pdf) from Infineon semiconductor. In order to improve the insertion loss of the LNA, an LC matching network is placed between the receiving antenna's output and the LNA's input which is as described in the datasheet.
 
 The output spectrum of the mixer contains two different frequencies which is the sum and difference of the two inputs. The sum component lies in the range of $$4.8GHz$$ to $$5GHz$$ which can be filtered out. The difference component lies in the $$0Hz$$ to $$100MHz$$ range. This baseband signal is sampled by an ADC and the fourier transform is computed by an external FPGA.
 
@@ -139,7 +139,11 @@ For the chosen stackup, a Grounded CoPlanar Waveguide(GCPW) structure was used o
 
 The transmission lines used provide a sufficiently flat response in the band of interest and were directly used. Small clearence/spacing changes were made in accordance to the manufacturer tolerences and design rules.
 
-With the transmission line designed, the PCB layout was straight forward and was done in EAGLE CAD. As I had chosen to go ahead with a 2 layer stack up, the bottom layer was a solid ground plane and the top layer was used for transision lines and occationl power traces. For ease of debugging, each block in the signal path was broken out with an [RF switch](https://www.infineon.com/dgdl/Infineon-BGSA11GN10-DataSheet-v03_02-EN.pdf?fileId=5546d46255dd933d0155e9dac4e809ed) alowing one to isolate and test every singleb lock. In order to be able to truly test ever block separately, the *VCC* pins for each block were broken out into a header so that the supply voltage could be provided to only one block at a time simplifying the routing.
+With the transmission line designed, the PCB layout was straight forward and was done in EAGLE CAD. As I had chosen to go ahead with a 2 layer stack up, the bottom layer was a solid ground plane and the top layer was used for transision lines and occationl power traces. For ease of debugging, each block in the signal path was broken out with an [RF switch](https://www.infineon.com/dgdl/Infineon-BGSA11GN10-DataSheet-v03_02-EN.pdf?fileId=5546d46255dd933d0155e9dac4e809ed) alowing one to isolate and test every singleb lock. In order to be able to truly test ever block separately, the *VCC* pins for each block were broken out into a header so that the supply voltage could be provided to only one block at a time simplifying the routing. The comlete PCB is shown below.
+
+![RADAR PCB](img\PCB.png)
+
+Note: The LO input to the mixer is connected using an SMA to U.FL cable. This was done by choice so as to be able to feed an external LO signal to verify the functionality of the mixer.
 
 Once the PCB layout was completed, it was imported into CST studio and was simulated to ensure that the impedence was controlled and all transmission lines had a low insertion loss. The important critical parts to be simulated are
 1. Simulation of SMA-GCPW transition.
@@ -158,3 +162,11 @@ The LNA input transmission line setup and results is shown below.
 
 ![CST LNA input](img\LNA_IN.png)
 ![LNA input Sparam](img\LNA_IN_S11.png)
+
+## Antenna design
+
+The antenna chosen for the RADAR was a microstrip patch antenna with an inset feed. This was desiged using the standard equations. The designed patch is narrow band in nature and would limit the performance of the RF Front end. In order to increase the bandwidth of the patch, two approaches can be taken
+1. Inserting slots into the patch.
+2. Trimming the corners.
+
+Of the two approaches, a corner trimmed approach was preferred due to it's simplicity. The optimal trimming values was determined using CST studio's optimizer.
