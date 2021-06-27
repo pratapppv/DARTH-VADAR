@@ -169,4 +169,27 @@ The antenna chosen for the RADAR was a microstrip patch antenna with an inset fe
 1. Inserting slots into the patch.
 2. Trimming the corners.
 
-Of the two approaches, a corner trimmed approach was preferred due to it's simplicity. The optimal trimming values was determined using CST studio's optimizer.
+Of the two approaches, a corner trimmed approach was preferred due to it's simplicity. The optimal trimming values was determined using CST studio's optimizer. The parameters for optimization were dimentions of the cutout to form the inset feed and the dimentions of the trangles cut out of the corners. The truncation on all four corners was symmetric. the antenna model, it's radiation pattern and S parameter's are shown below.
+
+![CST Antenna](img\antenna.png)
+![CST Antenna Radiation Pattern](img\radpat.png)
+![CST Antenna S11](img\antS11.png)
+
+The simulated antenna has a lower than average gain due to the underwhelming radiative efficiency which drastically reduces the range of the RADAR. As this was just a toy RADAR, the reduced range was not too worrisome.
+
+## Results
+
+After being satisfied with the simulation results of both the antenna and RF Front End(RFFE), the gerber fles were exported and sent in for fabrication. The images of the bare PCB and antenna are shown below.
+
+![Bare Antenna with SMA conecor](img\antenna_irl.png)
+![Bare PCB](img\PCB_irl.png)
+
+After spending a couple of hours soldering, the PCB was completely assembled and ready for testing.
+
+![Assembled PCB](img\assembledPCB.png)
+
+### Antenna Test Results
+
+On measuring the antenna's S11 paramter, it was evident that there was a shift in the center frequency of the antenna by roughly $$30MHz$$ as seen in the figure below.
+
+![VNA antenna](img\S11VNA.img)
