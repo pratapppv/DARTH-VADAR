@@ -175,7 +175,7 @@ Of the two approaches, a corner trimmed approach was preferred due to it's simpl
 ![CST Antenna Radiation Pattern](img\radpat.png)
 ![CST Antenna S11](img\antS11.png)
 
-The simulated antenna has a lower than average gain due to the underwhelming radiative efficiency which drastically reduces the range of the RADAR. As this was just a toy RADAR, the reduced range was not too worrisome.
+The simulated antenna has a lower than average gain due to the underwhelming radiative efficiency which drastically reduces the range of the RADAR. As this was just a toy RADAR, the reduced range was not too worrisome. Another issue was the reduced bandwidth. While the inital goal was to achieve a $$100MHz$$ bandwidth, the simulated antenna post corner truncation yielded a bandwidth of $$50MHz$$, sufficient for short range tests.
 
 ## Results
 
@@ -190,7 +190,14 @@ After spending a couple of hours soldering, the PCB was completely assembled and
 
 ### Antenna Test Results
 
-On measuring the antenna's S11 paramter, it was evident that there was a shift in the center frequency of the antenna by roughly $$50MHz$$ as seen in the figure below. This reduced the usable bandwidth to be close to $$30MHz$$, sufficient for short range testing.
+On measuring the antenna's S11 paramter, it was evident that there was a shift in the center frequency of the antenna by roughly $$50MHz$$ as seen in the figure below. This reduced the usable bandwidth to be close to $$25MHz$$, still sufficient for short range testing.
 
 ![VNA antenna](img\S11VNA.png)
 ![VNA antenna dip](img\VNAdip.png)
+
+### VCO Test Reslts
+
+For the VCO test, the VCO's *TUNE* pin was connected to *GND* and the isolator switch was set to a position to bridge the VCO's output to the test port. This port was connected to a spectrum analyzer **through an external DC block** to prevent any DC component present in the output from damaging the spectrum analyzer. This resulted in a drop of a couple of dB which was to be expected. The following image shows the spectrum analyzer output. Note: **When this picture was taken, the spectrum analyzer gave an *UNCAL* error indicating that the displayed power was wrong. On running the self cal and changing the span, the issue was resolved and the correct power level was displayed. Unfortunately, I donot have a picture of it**.
+
+![VCO Spectrum Analyzer Output](img\VCOSpec.png)
+
