@@ -204,4 +204,9 @@ For the VCO test, the VCO's *TUNE* pin was connected to *GND* and the isolator s
 
 ### LNA and Mixer Test
 
-For the LNA and Mixer test, the input of the LNA was connected to a synthesizer producing an output at $$2.03GHz$$ at a power level of $$-28dBm$$. The LO input of the Mixer is connected a Keysight Vector Signal Generator producing an output at $$2GHz$$ at a power level of $$8dBm$$. The spectrum analyzer is connected to the test point present after the LNA. The output of the mixer is connected to an oscilloscope where the IF signal(in this case) is observed. For measuring the LNA's performance, the switch is set to a state to connect the output of the LNA to the test point. The 
+For the LNA and Mixer test, the input of the LNA was connected to a synthesizer producing an output at $$2.03GHz$$ at a power level of $$-28dBm$$ as shown below.
+
+![LNA Synthesizer Frequency](img\LNA_in_freq.png)
+![LNA Synthesizer Power](img\LNA_in_power.png)
+
+The LO input of the Mixer is connected a Keysight Vector Signal Generator producing an output at $$2GHz$$ at a power level of $$8dBm$$ as shown below. The spectrum analyzer is connected to the test point present after the LNA. The output of the mixer is connected to an oscilloscope where the IF signal(in this case) is observed. For measuring the LNA's performance, the switch is set to a state to connect the output of the LNA to the test point. The 
