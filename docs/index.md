@@ -53,7 +53,7 @@ Where $ c $ is the speed of light (we assume the propagating medium to be air)
 
 From the above described equations, the block-diagram of a FMCW RADAR is pretty easily arrived at and is shown below  
 
-![block-diagram](img/BD.png)
+![block-diagram](img/bd.png)
 
 ## Design of RF Front End
 The block diagram is rather easily and directly translated into its circuit-level equivalent. To simplify matters, fully integrated components were used, condensing each block into a single IC and a handful of passives. The chirp is generated off board and is not discussed. For the remainder of the post, focus would be on some of the calculations performed to determine the range of the RADAR and the PCB layout considerations.
@@ -219,3 +219,8 @@ The LO input of the Mixer is connected to a Keysight Vector Signal Generator pro
 The spectrum analyzer is connected to the test point present after the LNA. The output of the mixer is connected to an oscilloscope where the IF signal(in this case) is observed. For measuring the LNA's performance, the switch is set to a state to connect the output of the LNA to the test point. Once the gain of the LNA was verified, the switch's state was changed to connect the LNA output to the mixer's input. The resulting IF must be at $$3MHz$$. This was verified by taking the FFT of the input signal on the oscilloscope as shown below.
 
 ![Oscilloscope IF](img/IF.png)
+
+## Final tests and Conclusion
+From the above tests, it is seen that the building blocks of the RADAR work individually and when connected together. The final complete test of the RADAR was carried out by using premade 2x2 patch antenna arrays for improving the gain, but at a lower bandwidth. For the target, a parabolic reflector was used, and the output of the RADAR was connected to an oscilloscope with the FFT option enabled to view the frequency spectrum. The RADAR was conclusively able to detect the parabolic reflector and was even sensitive enough to detect the movement of fingers. 
+
+In a different post, I will be talking in detail about the design and development of a custom FPGA based DSP board.
