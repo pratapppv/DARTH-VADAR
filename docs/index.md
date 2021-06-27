@@ -145,11 +145,16 @@ Once the PCB layout was completed, it was imported into CST studio and was simul
 1. Simulation of SMA-GCPW transition.
 2. Simulation of the curved power divider output transmission lines.
 3. Simulation of the U.FL connector transition.
-4. LNA input and matching network.
+4. LNA input transmission line simulation.
 
 The SMA-GCPW transition was extensively simulated and on performing TDR in CST, an impedence discontinuity was found to exist at the transition point. This was due to the large footprint of the SMA connector resulting in a lower impedence. To mitigate this issue, the lower ground plane was recessed from the edge of the board, increasing the impedence. The amount to be recessed was optimized using the optimizer tool in CST.
 
-Once the transition was optimized, the curved power divider output transmission lines was simulated. After a few iterations, the curve was optimized for the lowest loss. The image of the simulated setup and the resulting S11 parameter is shown below. Note: the planar transmission lines were terminated with an ideal $$50\Ohm$$ load.
+Once the transition was optimized, the curved power divider output transmission lines was simulated. After a few iterations, the curve was optimized for the lowest loss. The image of the simulated setup and the resulting S11 parameter is shown below. Note: the planar transmission lines were terminated with an ideal $$50\Omega$$ load.
 
 ![CST Curved PD out](img\curvePD.png)
 ![Curved PD Sparam](img\curvePDS11.png)
+
+The LNA input transmission line setup and results is shown below.
+
+![CST LNA input](img\LNA_IN.png)
+![LNA input Sparam](img\LNA_IN_S11.png)
