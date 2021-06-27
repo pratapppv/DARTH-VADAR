@@ -192,4 +192,5 @@ After spending a couple of hours soldering, the PCB was completely assembled and
 
 On measuring the antenna's S11 paramter, it was evident that there was a shift in the center frequency of the antenna by roughly $$50MHz$$ as seen in the figure below. This reduced the usable bandwidth to be close to $$30MHz$$, sufficient for short range testing.
 
-![VNA antenna](img\S11VNA.img)
+![VNA antenna](img\S11VNA.png)
+![VNA antenna dip](img\VNAdip.png)
