@@ -201,6 +201,9 @@ For the VCO test, the VCO's *TUNE* pin was connected to *GND* and the isolator s
 
 ![VCO Spectrum Analyzer Output](img\VCOSpec.png)
 
+### Power Amplifier and Power Divider test
+
+For the PA and PD test, the switch was set to the state where in the output of the VCO was connected to the input of the power amplifier. As the power divider has two output ports with one terminated into a $$50\Omega$$ load and the other is connected to a spectrum analyzer through a DC block.
 
 ### LNA and Mixer Test
 
@@ -209,4 +212,10 @@ For the LNA and Mixer test, the input of the LNA was connected to a synthesizer 
 ![LNA Synthesizer Frequency](img\LNA_in_freq.png)
 ![LNA Synthesizer Power](img\LNA_in_power.png)
 
-The LO input of the Mixer is connected a Keysight Vector Signal Generator producing an output at $$2GHz$$ at a power level of $$8dBm$$ as shown below. The spectrum analyzer is connected to the test point present after the LNA. The output of the mixer is connected to an oscilloscope where the IF signal(in this case) is observed. For measuring the LNA's performance, the switch is set to a state to connect the output of the LNA to the test point. The 
+The LO input of the Mixer is connected a Keysight Vector Signal Generator producing an output at $$2GHz$$ at a power level of $$8dBm$$ as shown below.
+
+![Mixer LO](img\Mixer_LO_in.png)
+
+The spectrum analyzer is connected to the test point present after the LNA. The output of the mixer is connected to an oscilloscope where the IF signal(in this case) is observed. For measuring the LNA's performance, the switch is set to a state to connect the output of the LNA to the test point. Once the gani of the LNA was verified, the switch's state was changed to connect the LNA output to the mixer's input. The resulting IF must be at $$3MHz$$. This was verified by taking the FFT of the input signal on the oscilloscope as shown below.
+
+![Oscilloscope IF](img/IF.png)
