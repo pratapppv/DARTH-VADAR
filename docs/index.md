@@ -71,77 +71,77 @@ Before proceeding to the PCB design, the system architecture was simulated in Ca
 
 #### Voltage Controlled Oscillator
 
-![AWR VCO](img\VCO.png)
+![AWR VCO](img/VCO.png)
 
 The spectrum at the output of the VCO is shown below
-![VCO Spectrum](img\VCO_spectrum.png)
+![VCO Spectrum](img/VCO_spectrum.png)
 
 #### Power Amplifier
 
-![AWR PA](img\PA.png)
+![AWR PA](img/PA.png)
 
 The output power is shown below
 
-![PA output](img\PApower.png)
+![PA output](img/PApower.png)
 
 #### Power Divider and Transmitting Antenna
 
 The power divider was modeled as per the datasheet similar to the previous components. The antenna used was a custom truncated inset fed microstrip patch antenna, designed and simulated using CST Microwave studio. The 3D farfield pattern was exported into a CSV file and imported into Cadence AWR to account for the antenna characteristics. The design of the antenna is explained in the later sections.
 
-![AWR Power Divider and Antenna](img\div_ant.png)
+![AWR Power Divider and Antenna](img/div_ant.png)
 
 #### Target Model
 
 For the target, a metallic object was used having a diameter of $$16m$$. Two cases were simulated, one where the velocity of the target is $$10ms^{-1}$$ moving away from the RADAR and another simpler case of a static target. The RCS was automatically computed by AWR. The figure shown below is from the case where the target is moving away from the RADAR. AWR assumes multiple reflections and a fading channel for the simulation which results in artifacts during the DSP section.
 
-![Target](img\target.png)
+![Target](img/target.png)
 
 #### Receiving Antenna and LNA
 
 The receiving antenna has the same design as the transmitting antenna and it was modeled in the same way as the transmitting antenna. For the given target, the LNA power output is shown below.
 
-![AWR Rx Antenna+LNA](img\Ant_LNA.png)
+![AWR Rx Antenna+LNA](img/Ant_LNA.png)
 
-I[AWR spectrum](img\LNA_spectrum.png)
+I[AWR spectrum](img/LNA_spectrum.png)
 
 #### Mixer
 
-![AWR Mixer](img\Mixer.png)
+![AWR Mixer](img/Mixer.png)
 
 #### Bare Minimum Signal Processing Section
 The bare minimum signal processing section exists to determine the functionality of the RADAR. 
 
-![AWR Receiver](img\receiver.png)
+![AWR Receiver](img/receiver.png)
 
 For this, the bandwidth was restricted to $$25kHz$$ by placing a 7th order Butterworth LC lowpass filter shown below.
 
-![AWR Filter](img\filter.png)
+![AWR Filter](img/filter.png)
 
 To model an ADC of $$50kHz$$, a downsampling block with a downsampling ratio of 10000 was used as the ADC block in AWR Visual System Simulator gives a digital output. The downsampling operation introduces copies of the main signal at other spectral locations which do not correspond to physical objects present at that location which is not of great concern currently as the signal processing chain simulated is more of a formality to verify the functionality of the RADAR and will **not** be implemented in its current format. An added advantage of implementing the ADC as a downsample block is that the signal is coherently sampled eliminating the need for any windowing functions to be used. The output of the downsampled signal is fed into a 128 point FFT block. This 128 point FFT results in a spectral resolution of $$390.625Hz$$ which corresponds to a spatial resolution of roughly $$20cm$$. The entire chain is shown below.
 
-![AWR SS](img\SS.png)
+![AWR SS](img/SS.png)
 
 Finally, the output of the entire RADAR is shown below. Rounding the frequency to be a round $20kHz$ and back substituting it in the RADAR distance equation, the distance measured is $$6m$$ which indeed is the set distance of the target.
 
-![AWR Result](img\output.png)
+![AWR Result](img/output.png)
 
 Note: this result is of the first sweep, at a time where the target has not moved much from its initial location.
 
 ### PCB Design
 The first thing decided was the PCB Stackup. Defying convention, a **2 layer** $$1.6mm$$ FR4 PCB stackup was chosen to have the following cross-section. 
 
-![PCB Stackup](img\stackup.png)
+![PCB Stackup](img/stackup.png)
 
 For the chosen stackup, a Grounded CoPlanar Waveguide(GCPW) structure was used over a more common microstrip transmission line due to its large width at this stackup. The spacing for the GCPW transmission line was calculated using an online calculator for a characteristic impedance of $$50\Omega$$. As I had access to CST-Microwave studio while designing, I simulated the transmission line and tweaked the spacing/geometry a bit to account for the PCB fabrication design rules and also null the effect of the breakout traces used to connect the transmission line to a pin of a required IC. The isometric view of the simulated geometry and results are shown below.
 
-![CST Transmission Line](img\TrL.png)
-![Transmission Line S parameters](img\Sparam.png)
+![CST Transmission Line](img/TrL.png)
+![Transmission Line S parameters](img/Sparam.png)
 
 The transmission lines used, provide a sufficiently flat response in the band of interest and were directly used. Small clearance/spacing changes were made in accordance with the manufacturer's tolerances and design rules.
 
 With the transmission line designed, the PCB layout was straightforward and was done in EAGLE CAD. As I had chosen to go ahead with a 2 layer stack up, the bottom layer was a solid ground plane and the top layer was used for transmission lines and occasional power traces. For ease of debugging, each block in the signal path was broken out with an [RF switch](https://www.infineon.com/dgdl/Infineon-BGSA11GN10-DataSheet-v03_02-EN.pdf?fileId=5546d46255dd933d0155e9dac4e809ed) allowing one to isolate and test every single block. In order to be able to truly test every block separately, the *VCC* pins for each block were broken out into a header so that the supply voltage could be provided to only one block at a time simplifying the routing. The complete PCB is shown below.
 
-![RADAR PCB](img\PCB.png)
+![RADAR PCB](img/PCB.png)
 
 Note: The LO input to the mixer is connected using an SMA to U.FL cable. This was done by choice so as to be able to feed an external LO signal to verify the functionality of the mixer.
 
@@ -155,13 +155,13 @@ The SMA-GCPW transition was extensively simulated and on performing TDR in CST, 
 
 Once the transition was optimized, the curved power divider output transmission lines were simulated. After a few iterations, the curve was optimized for the lowest loss. The image of the simulated setup and the resulting S11 parameter is shown below. Note: the planar transmission lines were terminated with an ideal $$50\Omega$$ load.
 
-![CST Curved PD out](img\curvePD.png)
-![Curved PD Sparam](img\curvePDS11.png)
+![CST Curved PD out](img/curvePD.png)
+![Curved PD Sparam](img/curvePDS11.png)
 
 The LNA input transmission line setup and results is shown below.
 
-![CST LNA input](img\LNA_IN.png)
-![LNA input Sparam](img\LNA_IN_S11.png)
+![CST LNA input](img/LNA_IN.png)
+![LNA input Sparam](img/LNA_IN_S11.png)
 
 ## Antenna design
 
@@ -171,9 +171,9 @@ The antenna chosen for the RADAR was a microstrip patch antenna with an inset fe
 
 Of the two approaches, a corner trimmed approach was preferred due to its simplicity. The optimal trimming values were determined using CST studio's optimizer. The parameters for optimization were the dimensions of the cutout to form the inset feed and the dimensions of the triangles which were cut out of the corners. The truncation on all four corners was symmetric. the antenna model, its radiation pattern, and S parameters are shown below.
 
-![CST Antenna](img\antenna.png)
-![CST Antenna Radiation Pattern](img\radpat.png)
-![CST Antenna S11](img\antS11.png)
+![CST Antenna](img/antenna.png)
+![CST Antenna Radiation Pattern](img/radpat.png)
+![CST Antenna S11](img/antS11.png)
 
 The simulated antenna has a lower than average gain due to the underwhelming radiative efficiency which drastically reduces the range of the RADAR. As this was just a toy RADAR, the reduced range was not too worrisome. Another issue was the reduced bandwidth. While the initial goal was to achieve a $$100MHz$$ bandwidth, the simulated antenna post corner truncation yielded a bandwidth of $$50MHz$$, sufficient for short-range tests.
 
@@ -181,25 +181,25 @@ The simulated antenna has a lower than average gain due to the underwhelming rad
 
 After being satisfied with the simulation results of both the antenna and RF Front End(RFFE), the gerber files were exported and sent in for fabrication. The images of the bare PCB and antenna are shown below.
 
-![Bare Antenna with SMA conecor](img\antenna_irl.png)
-![Bare PCB](img\PCB_irl.png)
+![Bare Antenna with SMA conecor](img/antenna_irl.png)
+![Bare PCB](img/PCB_irl.png)
 
 After spending a couple of hours soldering, the PCB was completely assembled and ready for testing.
 
-![Assembled PCB](img\assembledPCB.png)
+![Assembled PCB](img/assembledPCB.png)
 
 ### Antenna Test Results
 
 On measuring the antenna's S11 parameter, it was evident that there was a shift in the center frequency of the antenna by roughly $$50MHz$$ as seen in the figure below. This reduced the usable bandwidth to be close to $$25MHz$$, still sufficient for short range testing.
 
-![VNA antenna](img\S11VNA.png)
-![VNA antenna dip](img\VNAdip.png)
+![VNA antenna](img/S11VNA.png)
+![VNA antenna dip](img/VNAdip.png)
 
 ### VCO Test Results
 
 For the VCO test, the VCO's *TUNE* pin was connected to *GND* and the isolator switch was set to a position to bridge the VCO's output to the test port. This port was connected to a spectrum analyzer **through an external DC block** to prevent any DC component present in the output from damaging the spectrum analyzer. This resulted in a drop of a couple of dB which was to be expected. The following image shows the spectrum analyzer output. Note: **When this picture was taken, the spectrum analyzer gave an *UNCAL* error indicating that the displayed power was wrong. On running the self cal and changing the span, the issue was resolved and the correct power level was displayed. Unfortunately, I do not have a picture of it**.
 
-![VCO Spectrum Analyzer Output](img\VCOSpec.png)
+![VCO Spectrum Analyzer Output](img/VCOSpec.png)
 
 ### Power Amplifier and Power Divider test
 
@@ -209,12 +209,12 @@ For the PA and PD test, the switch was set to the state wherein the output of th
 
 For the LNA and Mixer test, the input of the LNA was connected to a synthesizer producing an output at $$2.03GHz$$ at a power level of $$-28dBm$$ as shown below.
 
-![LNA Synthesizer Frequency](img\LNA_in_freq.png)
-![LNA Synthesizer Power](img\LNA_in_power.png)
+![LNA Synthesizer Frequency](img/LNA_in_freq.png)
+![LNA Synthesizer Power](img/LNA_in_power.png)
 
 The LO input of the Mixer is connected to a Keysight Vector Signal Generator producing an output at $$2GHz$$ at a power level of $$8dBm$$ as shown below.
 
-![Mixer LO](img\Mixer_LO_in.png)
+![Mixer LO](img/Mixer_LO_in.png)
 
 The spectrum analyzer is connected to the test point present after the LNA. The output of the mixer is connected to an oscilloscope where the IF signal(in this case) is observed. For measuring the LNA's performance, the switch is set to a state to connect the output of the LNA to the test point. Once the gain of the LNA was verified, the switch's state was changed to connect the LNA output to the mixer's input. The resulting IF must be at $$3MHz$$. This was verified by taking the FFT of the input signal on the oscilloscope as shown below.
 
