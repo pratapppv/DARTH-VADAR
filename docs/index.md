@@ -102,7 +102,7 @@ The receiving antenna has the same design as the transmitting antenna and it was
 
 ![AWR Rx Antenna+LNA](img/Ant_LNA.png)
 
-I[AWR spectrum](img/LNA_spectrum.png)
+![AWR spectrum](img/LNA_spectrum.png)
 
 #### Mixer
 
