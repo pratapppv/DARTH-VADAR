@@ -221,6 +221,6 @@ The spectrum analyzer is connected to the test point present after the LNA. The 
 ![Oscilloscope IF](img/IF.png)
 
 ## Final tests and Conclusion
-From the above tests, it is seen that the building blocks of the RADAR work individually and when connected together. The final complete test of the RADAR was carried out by using premade 2x2 patch antenna arrays for improving the gain, but at a lower bandwidth. For the target, a parabolic reflector was used, and the output of the RADAR was connected to an oscilloscope with the FFT option enabled to view the frequency spectrum. The RADAR was conclusively able to detect the parabolic reflector and was even sensitive enough to detect the movement of fingers. 
+From the above tests, it is seen that the building blocks of the RADAR work individually and when connected together. The final complete test of the RADAR was carried out by using premade 2x2 patch antenna arrays for improving the gain, but at a lower bandwidth. For the target, a parabolic reflector was used, and the output of the RADAR was connected to an oscilloscope with the FFT option enabled to view the frequency spectrum. The RADAR was conclusively able to detect the parabolic reflector and was even sensitive enough to detect the movement of hands. 
 
 In a different post, I will be talking in detail about the design and development of a custom FPGA based DSP board.
